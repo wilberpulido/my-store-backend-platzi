@@ -1,6 +1,6 @@
 const express = require('express');
 const validatorHandler = require('../middlewares/validatorHandler');
-const {createOrderSchema,getOrderSchema} = require('../schemas/OrderSchema')
+const {createOrderSchema,getOrderSchema,addItemSchema} = require('../schemas/OrderSchema')
 const OrderService = require('../services/OrderService');
 
 const router = express.Router();
@@ -21,7 +21,7 @@ router.post('/',
     message:"creado con exito",
     data:newOrder
   })
-})
+});
 
 router.get('/:id',
   validatorHandler(getOrderSchema,'params'),
@@ -33,7 +33,18 @@ router.get('/:id',
   }catch(error){
     next(error);
   }
+});
 
+router.post('/add-item',
+  validatorHandler(addItemSchema,'body'),
+  async(req,res)=>{
+  const body = req.body;
+  const newItem = await service.addItem(body);
+
+  res.status(201).json({
+    message:"creado con exito",
+    data:newItem
+  })
 })
 
 module.exports = router;

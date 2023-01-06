@@ -2,7 +2,7 @@ const { Model,DataTypes,Sequelize } = require('sequelize');
 const { ORDER_TABLE } = require('./OrderModel');
 const { PRODUCT_TABLE } = require('./ProductModel');
 
-const ORDER_PRODUCT_TABLE = 'customers';
+const ORDER_PRODUCT_TABLE = 'order_product';
 
 const OrderProductSchma = {
   id: {
@@ -15,7 +15,6 @@ const OrderProductSchma = {
     field: 'order_id',
     allowNull: false,
     type: DataTypes.INTEGER,
-    unique: true,
     references:{
       model:ORDER_TABLE,
       key: 'id',
@@ -27,7 +26,6 @@ const OrderProductSchma = {
     field: 'user_id',
     allowNull: false,
     type: DataTypes.INTEGER,
-    unique: true,
     references:{
       model:PRODUCT_TABLE,
       key: 'id',
@@ -54,8 +52,8 @@ const OrderProductSchma = {
 }
 
 class OrderProduct extends Model {
-  static associate(models){
-  }
+  // static associate(models){
+  // }
   static config(sequelize){
     return {
       sequelize,

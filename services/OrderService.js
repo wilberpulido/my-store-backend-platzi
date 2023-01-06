@@ -14,7 +14,8 @@ class OrderService {
         {
           association: "customer",
           include: ['user']
-        }
+        },
+        'items'
       ]
     });
     if (!order) {
@@ -22,6 +23,10 @@ class OrderService {
     }
     return order;
   }
+  async addItem(data){
+    return await models.OrderProduct.create(data);
+  }
+
 }
 
 module.exports = OrderService;

@@ -32,6 +32,16 @@ const OrderSchema = {
     type:DataTypes.DATE,
     field: 'updated_at',
     defaultValue: Sequelize.NOW,
+  },
+  total:{
+    type: DataTypes.VIRTUAL,
+    get(){
+      if(this.items.length > 0){ //this.items corresponde al nombre de la asociacion
+        return this.items.reduce((total,item)=>{
+          return total + (item.price * item.OrderProduct.amount)
+        },0);
+      }
+    }
   }
 }
 
@@ -43,7 +53,7 @@ class Order extends Model {
     })
     this.belongsToMany(models.Product,{
       through: models.OrderProduct,
-      as:'items',
+      as:'items', //nombre de la asociacion con item
       foreignKey:'orderId',
       otherKey:'productId',
     })

@@ -1,28 +1,32 @@
 const express = require('express')
 const ProductsService = require('./../services/ProductsService');
 const validatorHandler = require('./../middlewares/validatorHandler');
-const {createProductSchema,updateProductSchema,getProductSchema} =  require('./../schemas/productSchema');
+const {createProductSchema,updateProductSchema,getProductSchema,queryProductSchema} =  require('./../schemas/productSchema');
 
 
 const router = express.Router();
 const service = ProductsService;
 
-router.get('/',async (req,res)=>{
-  let products = await service.getAllProducts();
-  res.json(products)
-})
+router.get('/',
+validatorHandler(queryProductSchema,'query'),
+  async (req,res)=>{
+    let products = await service.getAllProducts(req.query);
+    res.json(products)
+  }
+)
 
 router.post('/',
   validatorHandler(createProductSchema,'body'),
   async(req,res)=>{
-  const body = req.body;
-  const newProduct = await service.create(body);
+    const body = req.body;
+    const newProduct = await service.create(body);
 
-  res.status(201).json({
-    message:"creado con exito",
-    data:newProduct
-  })
-})
+    res.status(201).json({
+      message:"creado con exito",
+      data:newProduct
+    })
+  }
+)
 
 router.patch('/:id',(req,res)=>{
   const { id } = req.params;

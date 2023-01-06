@@ -18,7 +18,7 @@ function setupModels(sequelize){
   Order.associate(sequelize.models);
   Category.associate(sequelize.models);
   Product.associate(sequelize.models);
-  OrderProductSchma.associate(sequelize.models);
+  //OrderProductSchma.associate(sequelize.models);
 }
 
 module.exports = setupModels;
