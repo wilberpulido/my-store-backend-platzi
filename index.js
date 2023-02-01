@@ -4,7 +4,7 @@ const routerApi = require('./routes')
 const app = express();
 const port = process.env.PORT || 3000;
 const {logErrors,errorHandler,boomErrorHandler,ormErrorHandler} = require('./middlewares/ErrorHandler')
-
+const {checkApiKey} = require('./middlewares/authHandler');
 app.use(express.json())
 
 const  whiteList = [
@@ -39,6 +39,14 @@ app.use(cors()) //Para todos
 //     },
 //   )
 // })
+app.get('/nueva-ruta',
+checkApiKey
+,
+  (req,res)=>{
+    res.send('Hola, soy una nueva ruta')
+  }
+)
+
 
 routerApi(app);
 app.use(logErrors);
