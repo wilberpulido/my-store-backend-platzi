@@ -3,6 +3,7 @@ const boom = require('@hapi/boom');
 //const getConnection = require('../libs/postgres');
 //const pool = require('../libs/postgresPool');
 const { models } = require('./../libs/sequelize');
+const bcrypt = require('bcrypt');
 
 class UserService {
   constructor() {
@@ -11,9 +12,12 @@ class UserService {
   }
 
   async create(data) {
+    const hash = await bcrypt.hash(data.password,10);
     let newUser = '';
     try {
-      newUser = await models.User.create(data);
+      newUser = await models.User.create({...data,password:hash});
+      //delete newUser.password; Una manera, la haremos con serializes
+      delete newUser.dataValues.password
     } catch (error) {
       return error;
     }
@@ -33,6 +37,21 @@ class UserService {
     ///return tasks.rows;
     return users;
   }
+  async findByEmail(email) {
+    // const users = await models.User.findOne({
+    //     where: { email }
+    //   }
+    // );
+    // ///return tasks.rows;
+    // return users;]
+
+    return await models.User.findOne(
+      {
+        where: { email }
+      }
+    );
+  }
+
 
   async findOne(id) {
     const user = await models.User.findByPk(id);

@@ -22,6 +22,8 @@ const options = {
 app.use(cors()) //Para todos
 //app.use(cors(options))
 
+require('./utils/auth'); //Cargar las estrategias de logins
+
 
 // app.get('/',(req,res)=>{
 //   res.send('Hola, mi server en mi express')
