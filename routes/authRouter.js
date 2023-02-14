@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { config } = require('./../config/config')
 
 router.post('/login',
-  passport.authenticate('local',{session:false}) ,
+  passport.authenticate('local',{session:false}),
   async (req, res, next) => {
     try {
       const user = req.user;
