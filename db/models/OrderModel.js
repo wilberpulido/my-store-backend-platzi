@@ -33,7 +33,7 @@ const OrderSchema = {
     field: 'updated_at',
     defaultValue: Sequelize.NOW,
   },
-  total:{
+  /*total:{
     type: DataTypes.VIRTUAL,
     get(){
       if(this.items.length > 0){ //this.items corresponde al nombre de la asociacion
@@ -42,7 +42,7 @@ const OrderSchema = {
         },0);
       }
     }
-  }
+  }*/
 }
 
 class Order extends Model {
