@@ -72,6 +72,21 @@ class UserService {
     await user.destroy();
     return { id };
   }
+  async findCustomerByUserId(id){
+    const customer = await models.Customer.findOne({
+      where:{
+        'user_id': id
+      },
+    })
+    console.log('aca')
+    const test = await models.Customer.findOne({
+      include: 'user'
+    })
+    console.log(test)
+console.log('fin')
+    //console.log(customer);
+    return customer;
+  }
 }
 
 module.exports = UserService;
