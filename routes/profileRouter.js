@@ -23,11 +23,11 @@ router.post('/new-order',
   async(req,res)=>{
   const user = req.user;
   const customer = await UserService.findCustomerByUserId(user.sub);
-  console.log(customer)
+  //console.log(customer)
   const data = {
     "customerId": customer.dataValues.id
   }
-  console.log(data)
+  //console.log(data)
 
   const newOrder = await orderService.create(data);
 

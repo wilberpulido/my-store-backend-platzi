@@ -3,7 +3,7 @@ const { config } = require('../config/config');
 
 function checkApiKey(req,res,next){
   const apiKey = req.headers['api'];
-  console.log('checkApi')
+  //console.log('checkApi')
   if( apiKey === config.apiKey ){
     next();
   }else{
@@ -13,8 +13,8 @@ function checkApiKey(req,res,next){
 //primera version
 function checkAdminRole(req,res,next){
   const user = req.user;
-  console.log('checkAdminRole')
-  console.log(req.user)
+  //console.log('checkAdminRole')
+  //console.log(req.user)
   if(user.role === 'admin'){
     next();
   }else{

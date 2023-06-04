@@ -78,12 +78,12 @@ class UserService {
         'user_id': id
       },
     })
-    console.log('aca')
+    /*console.log('aca')
     const test = await models.Customer.findOne({
       include: 'user'
     })
     console.log(test)
-console.log('fin')
+console.log('fin')*/
     //console.log(customer);
     return customer;
   }
