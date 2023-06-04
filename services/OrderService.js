@@ -3,8 +3,7 @@ const boom = require('@hapi/boom');
 
 class OrderService {
   async create(data){
-    const newOrder = await models.Order.create(data);
-    return newOrder;
+    return await models.Order.create(data);
   }
   async find() {
     return await models.Order.findAll();
@@ -42,7 +41,6 @@ class OrderService {
   async addItem(data){
     return await models.OrderProduct.create(data);
   }
-
 }
 
 module.exports = OrderService;

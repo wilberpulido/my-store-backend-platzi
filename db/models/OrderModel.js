@@ -33,17 +33,16 @@ const OrderSchema = {
     field: 'updated_at',
     defaultValue: Sequelize.NOW,
   },
-  total:{
+  /*total:{
     type: DataTypes.VIRTUAL,
-    //TODO: checkear
-    // get(){
-    //   if(this.items.length > 0){ //this.items corresponde al nombre de la asociacion
-    //     return this.items.reduce((total,item)=>{
-    //       return total + (item.price * item.OrderProduct.amount)
-    //     },0);
-    //   }
-    // }
-  }
+    get(){
+      if(this.items.length > 0){ //this.items corresponde al nombre de la asociacion
+        return this.items.reduce((total,item)=>{
+          return total + (item.price * item.OrderProduct.amount)
+        },0);
+      }
+    }
+  }*/
 }
 
 class Order extends Model {
