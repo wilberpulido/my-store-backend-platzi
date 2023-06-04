@@ -15,9 +15,11 @@ router.post('/',
   validatorHandler(createOrderSchema,'body'),
   async(req,res)=>{
   const body = req.body;
+  console.log(body)
   const newOrder = await service.create(body);
+  console.log(newOrder);
 
-  res.status(201).json({
+  return res.status(201).json({
     message:"creado con exito",
     data:newOrder
   })
