@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { config } = require('./../config/config');
-const { User } = require('../db/models/UserModel');
 
 const service = new UserService();
 
@@ -53,7 +52,25 @@ class AuthService {
     return await this.sendMail(mail);
   }
 
+  async changePassword(token,newPassword){
 
+    try {
+      const payload = jwt.verify(token,config.jwtSecret);
+      const user = await service.findOne(payload.sub);
+
+      if(user.recoveryToken !== token){
+        throw boom.unauthorized();
+      }
+      const hash = await bcrypt.hash(newPassword,10);
+      await service.update(user.id,{recoveryToken:null,password:hash});
+      return {message: 'password change'}
+
+
+    } catch (error) {
+      throw boom.unauthorized();
+    }
+
+  }
 
   async sendMail(infoMail){
     const transporter = nodemailer.createTransport({

@@ -33,6 +33,20 @@ router.post('/recovery',
   }
 );
 
+router.post('/change-password',
+//Crear una capa con un schma de joi para validar que llegue token, newPassword y la confirmacion
+  async (req, res, next) => {
+    try {
+      const { token,newPassword } = req.body;
+      const rta = await service.resetRecovery(email);
+
+      res.json(rta);
+
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 
 module.exports = router;
